@@ -80,69 +80,114 @@ create table produces(
     primary key (prID,pid)
 );
 
-
 -- Inserting data into 'members' table
 INSERT INTO members (mid, name, address, phonenumber) VALUES
-(1, 'John Smith', '123 Main Street', '1'),
+(1, 'John Smith', '123 Main Street', '1');
+
+INSERT INTO members (mid, name, address, phonenumber) VALUES
 (2, 'Alice Lee', '456 Elm Avenue', '1');
 
 -- Inserting data into 'stores' table
 INSERT INTO stores (sid, name, location) VALUES
-(1, 'SuperMart', '789 Oak Street'),
+(1, 'SuperMart', '789 Oak Street');
+
+INSERT INTO stores (sid, name, location) VALUES
 (2, 'MegaStore', '321 Pine Road');
 
 -- Inserting data into 'storehours' table
 INSERT INTO storehours (sid, day, openTime, closeTime) VALUES
-(1, 1, '09:00:00', '18:00:00'),
-(1, 2, '09:30:00', '17:30:00');
+(1, 1, TO_DATE('09:00:00', 'HH24:MI:SS'), TO_DATE('18:00:00', 'HH24:MI:SS'));
+
+INSERT INTO storehours (sid, day, openTime, closeTime) VALUES
+(1, 2, TO_DATE('09:30:00', 'HH24:MI:SS'), TO_DATE('17:30:00', 'HH24:MI:SS'));
 
 -- Inserting data into 'employees' table
 INSERT INTO employees (storeID, eid, name, salary) VALUES
-(1, 101, 'Emily Johnson', 3000),
+(1, 101, 'Emily Johnson', 3000);
+
+INSERT INTO employees (storeID, eid, name, salary) VALUES
 (2, 102, 'Michael Brown', 3500);
 
 -- Inserting data into 'products' table
 INSERT INTO products (pid, pname, category, price, quantity) VALUES
-(1, 'Bread', 'Groceries', 2.5, 100),
-(2, 'Smartphone', 'Electronics', 500, 50),
-(3, 'Milk', 'Groceries', 1.5, 200),
-(4, 'T-shirt', 'Apparel', 15.99, 50),
-(5, 'Laptop', 'Electronics', 1200, 20),
-(6, 'Toothpaste', 'Personal Care', 3.99, 100),
-(7, 'Sunglasses', 'Accessories', 25.5, 30),
-(8, 'Desk Lamp', 'Home & Office', 35.99, 15),
-(9, 'Backpack', 'Bags', 29.99, 40),
-(10, 'Running Shoes', 'Footwear', 79.99, 25),
-(11, 'Coffee Maker', 'Kitchen Appliances', 49.99, 10),
+(1, 'Bread', 'Groceries', 2.5, 100);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(2, 'Smartphone', 'Electronics', 500, 50);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(3, 'Milk', 'Groceries', 1.5, 200);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(4, 'T-shirt', 'Apparel', 15.99, 50);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(5, 'Laptop', 'Electronics', 1200, 20);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(6, 'Toothpaste', 'Personal Care', 3.99, 100);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(7, 'Sunglasses', 'Accessories', 25.5, 30);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(8, 'Desk Lamp', 'Home & Office', 35.99, 15);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(9, 'Backpack', 'Bags', 29.99, 40);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(10, 'Running Shoes', 'Footwear', 79.99, 25);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
+(11, 'Coffee Maker', 'Kitchen Appliances', 49.99, 10);
+
+INSERT INTO products (pid, pname, category, price, quantity) VALUES
 (12, 'Notebook', 'Stationery', 5.99, 80);
-
-
 
 -- Inserting data into 'producers' table
 INSERT INTO producers (prID, name, location) VALUES
-(1, 'Farm Fresh', '123 Farm Rd'),
+(1, 'Farm Fresh', '123 Farm Rd');
+
+INSERT INTO producers (prID, name, location) VALUES
 (2, 'Tech Innovate', '456 Tech Blvd');
 
 -- Inserting data into 'discounts' table
 INSERT INTO discounts (pid, storeID, newprice, startDate, expDate) VALUES
-(1, 1, 2.0, '2024-03-01', '2024-03-31'),
-(2, 2, 480, '2024-03-15', '2024-04-15');
+(1, 1, 2.0, TO_DATE('2024-03-01', 'YYYY-MM-DD'), TO_DATE('2024-03-31', 'YYYY-MM-DD'));
+
+INSERT INTO discounts (pid, storeID, newprice, startDate, expDate) VALUES
+(2, 2, 480, TO_DATE('2024-03-15', 'YYYY-MM-DD'), TO_DATE('2024-04-15', 'YYYY-MM-DD'));
 
 -- Inserting data into 'transactions' table
 INSERT INTO transactions (tid, sid, mid, pdate) VALUES
-(1, 1, 1, '2024-03-10'),
-(2, 2, 2, '2024-03-12'),
-(3, 1, 2, '2024-03-15'),
-(4, 2, 1, '2024-03-18');
+(1, 1, 1, TO_DATE('2024-03-10', 'YYYY-MM-DD'));
+
+INSERT INTO transactions (tid, sid, mid, pdate) VALUES
+(2, 2, 2, TO_DATE('2024-03-12', 'YYYY-MM-DD'));
+
+INSERT INTO transactions (tid, sid, mid, pdate) VALUES
+(3, 1, 2, TO_DATE('2024-03-15', 'YYYY-MM-DD'));
+
+INSERT INTO transactions (tid, sid, mid, pdate) VALUES
+(4, 2, 1, TO_DATE('2024-03-18', 'YYYY-MM-DD'));
 
 -- Inserting data into 'purchases' table
 INSERT INTO purchases (tid, pid, quantity, status) VALUES
-(1, 1, 5, 'completed'),
-(2, 2, 1, 'pending'),
-(3, 2, 2, 'completed'),
+(1, 1, 5, 'completed');
+
+INSERT INTO purchases (tid, pid, quantity, status) VALUES
+(2, 2, 1, 'pending');
+
+INSERT INTO purchases (tid, pid, quantity, status) VALUES
+(3, 2, 2, 'completed');
+
+INSERT INTO purchases (tid, pid, quantity, status) VALUES
 (4, 1, 3, 'pending');
 
 -- Inserting data into 'produces' table
 INSERT INTO produces (prID, pid) VALUES
-(1, 1),
+(1, 1);
+
+INSERT INTO produces (prID, pid) VALUES
 (2, 2);
