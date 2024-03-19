@@ -25,8 +25,8 @@ create table stores(
 create table storehours(
     sid int references stores(sid),
     day int,
-    openTime time,
-    closeTime time,
+    openTime date,
+    closeTime date,
     primary key(sid,day)
 );
 create table employees(
@@ -75,10 +75,12 @@ create table purchases(
 );
 
 create table produces(
-    prID int references producer(prID),
+    prID int references producers(prID),
     pid int references products(pid),
     primary key (prID,pid)
 );
+
+
 
 -- Inserting data into 'members' table
 INSERT INTO members (mid, name, address, phonenumber) VALUES
@@ -131,7 +133,7 @@ INSERT INTO products (pid, pname, category, price, quantity) VALUES
 (7, 'Sunglasses', 'Accessories', 25.5, 30);
 
 INSERT INTO products (pid, pname, category, price, quantity) VALUES
-(8, 'Desk Lamp', 'Home & Office', 35.99, 15);
+(8, 'Desk Lamp', 'Office', 35.99, 15);
 
 INSERT INTO products (pid, pname, category, price, quantity) VALUES
 (9, 'Backpack', 'Bags', 29.99, 40);
