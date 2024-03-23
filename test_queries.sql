@@ -6,7 +6,7 @@ FROM producers;
 
 SELECT pname
 FROM products
-WHERE category = 'groceries';
+WHERE category = 'Groceries';
 
 SELECT COUNT(DISTINCT mid) AS num_customers
 FROM transactions
@@ -35,11 +35,12 @@ SELECT openTime, closeTime
 FROM storehours
 WHERE sid = 1;
 
-SELECT p.name AS manufacturer_name
-FROM products pr
-JOIN producers p ON pr.prID = p.prID
-JOIN discounts d ON pr.pid = d.pid
-ORDER BY d.newprice / pr.price DESC
+SELECT pr.name AS manufacturer_name
+FROM producers pr
+JOIN produces p ON pr.prID = p.prID
+JOIN products pro ON pro.pid = p.pid
+JOIN discounts d ON pro.pid = d.pid
+ORDER BY d.newprice / pro.price DESC
 FETCH FIRST 1 ROW ONLY;
 
 SELECT m.name AS customer_name, SUM(p.quantity * pr.price) AS total_price
@@ -52,12 +53,13 @@ GROUP BY m.name;
 SELECT pname
 FROM products pr
 JOIN discounts d ON pr.pid = d.pid
-WHERE (pr.price - d.newprice) / pr.price > 0.2;
+WHERE (pr.price - d.newprice) / pr.price > 0.1;
 
-SELECT SUM(price * quantity) AS total_price
-FROM products
-JOIN producers ON products.prID = producers.prID
-WHERE producers.name = 'Farm Fresh';
+SELECT SUM(p.price * p.quantity) AS total_price
+FROM products p
+JOIN produces pr ON p.pID = pr.pID
+JOIN producers pro ON pr.prID = pro.prID
+WHERE pro.name = 'Farm Fresh';
 
 SELECT s.location, e.eid
 FROM storehours sh
@@ -67,11 +69,12 @@ WHERE sh.day = 1
 ORDER BY closeTime - openTime DESC
 FETCH FIRST 1 ROW ONLY;
 
-SELECT pr.*
-FROM products pr
-JOIN producers p ON pr.prID = p.prID
-WHERE p.name = 'Tech Innovate'
-AND pr.price < 50;
+SELECT p.*
+FROM products p
+JOIN produces pr ON pr.pID = p.pID
+JOIN producers pro ON pro.prID = pr.prID
+WHERE pro.name = 'Tech Innovate'
+AND p.price < 600;
 
 SELECT AVG(e.salary) AS avg_salary
 FROM employees e
@@ -88,15 +91,16 @@ JOIN transactions t ON m.mid = t.mid
 JOIN purchases p ON t.tid = p.tid
 WHERE p.status = 'pending' AND t.pdate < SYSDATE - INTERVAL '3' DAY;
 
-SELECT s.name AS store_name, SUM(pr.price * p.quantity) AS total_revenue
-FROM stores s
-LEFT JOIN transactions t ON s.sid = t.sid
-LEFT JOIN purchases p ON t.tid = p.tid
-LEFT JOIN products pr ON p.pid = pr.pid
-WHERE t.pdate >= ADD_MONTHS(TRUNC(SYSDATE, 'Q'), -3) AND t.pdate < TRUNC(SYSDATE, 'Q')
-GROUP BY s.name;
+SELECT t.sid AS StoreID, s.name AS StoreName, 
+       SUM(pr.price * p.quantity) AS TotalRevenue
+FROM transactions t
+JOIN purchases p ON t.tid = p.tid
+JOIN products pr ON p.pid = pr.pid
+JOIN stores s ON t.sid = s.sid
+WHERE EXTRACT(MONTH FROM t.pdate) = 3
+GROUP BY t.sid, s.name;
 
-SELECT m.name AS customer_name, m.address
+SELECT DISTINCT(m.name) AS customer_name, m.address
 FROM members m
 JOIN transactions t ON m.mid = t.mid
 WHERE t.pdate >= TRUNC(SYSDATE, 'MM') - INTERVAL '1' MONTH AND t.pdate < TRUNC(SYSDATE, 'MM')
