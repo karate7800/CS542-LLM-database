@@ -1,0 +1,5 @@
+Get address of member 3
+find most expensive product?
+refund john's last purchase?
+what is the most frequently bought item?
+what employees earn below X$ and should be promoted?
