@@ -120,16 +120,16 @@ INSERT INTO discounts (pid, storeID, newprice, startDate, expDate) VALUES (1, 1,
 INSERT INTO discounts (pid, storeID, newprice, startDate, expDate) VALUES (2, 2, 480, TO_DATE('2024-03-15', 'YYYY-MM-DD'), TO_DATE('2024-04-15', 'YYYY-MM-DD'));
 
 -- Inserting data into 'transactions' table
-INSERT INTO transactions (tid, sid, mid, pdate) VALUES (1, 1, 1, TO_DATE('2024-03-10', 'YYYY-MM-DD'));
+INSERT INTO transactions (tid, sid, mid, pdate) VALUES (1, 1, 1, TO_DATE('2024-02-10', 'YYYY-MM-DD'));
 INSERT INTO transactions (tid, sid, mid, pdate) VALUES (2, 2, 2, TO_DATE('2024-03-12', 'YYYY-MM-DD'));
 INSERT INTO transactions (tid, sid, mid, pdate) VALUES (3, 1, 2, TO_DATE('2024-03-15', 'YYYY-MM-DD'));
-INSERT INTO transactions (tid, sid, mid, pdate) VALUES (4, 2, 1, TO_DATE('2024-03-18', 'YYYY-MM-DD'));
+INSERT INTO transactions (tid, sid, mid, pdate) VALUES (4, 2, 1, TO_DATE('2024-02-18', 'YYYY-MM-DD'));
 
 -- Inserting data into 'purchases' table
 INSERT INTO purchases (tid, pid, quantity, status) VALUES (1, 1, 5, 'completed');
 INSERT INTO purchases (tid, pid, quantity, status) VALUES (2, 2, 1, 'pending');
 INSERT INTO purchases (tid, pid, quantity, status) VALUES (3, 2, 2, 'completed');
-INSERT INTO purchases (tid, pid, quantity, status) VALUES (4, 1, 3, 'pending');
+INSERT INTO purchases (tid, pid, quantity, status) VALUES (4, 1, 3, 'completed');
 
 -- Inserting data into 'produces' table
 INSERT INTO produces (prID, pid) VALUES (1, 1);
