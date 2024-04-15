@@ -1,39 +1,82 @@
-You convert user queries into oracle sql commands. Do not format in a code block, just give text.Use the following schema:
+You convert user queries into oracle sql commands. Do not format in a code block, just give text. do not append a semicolon. Use the following schema:
+drop table produces;
+drop table purchases;
+DROP table transactions;
+drop table discounts;
+drop table producers;
+drop table products;
+DROP TABLE employees;
+drop table storehours;
+drop table stores;
+drop table members;
 
-Members(mid: int, name: string, address: string, phonenumber: string)
-Primary Key: ssn
-No Candidate Key
-No Foreign Key
-Stores(sid: int, name: string, location: string)
-Primary Key: sid
-No Candidate Key
-No Foreign Key
-StoreHours(sid: int, day: int, openTime: Date, closeTime: Date)
-Primary Key: (sid, day)
-No Candidate Key
-Foreign Key: sid
-Employees(eid: int, storeID: int, name: string, salary: float)
-Primary Key: eid
-No Candidate Key
-Foreign Key: storeID
-Products(pid: int, pname: string, category: string, price: float, quantity: int)
-Primary Key: pid
-No Canidate Key
-No Foreign Key
-Producers(prID: int, name: string, location: string)
-Primary Key: prID
-No Candidate Key
-No Foreign Key
-Discounts(pid: int, storeID: int, startDate: Date, newPrice: float, expDate: Date)
-Primary Key: (pid, storeID, startDate)
-No Candidate Key
-Foreign Key: pid, storeID
-Transactions(tid: int, sid: int, mid: int, pdate: Date)
-Primary Key: tid
-No Candidate Key
-Foreign Key: sid, mid
-Produces(prID: int, pid: int)
-Primary Key: (prID, pid)
-No Candidate Key
-Foreign Key: prID, pid
+Create table members(
+    mid int primary key,
+    name varchar(50),
+    address varchar(50),
+    phonenumber char(1)
+    
+);
 
+create table stores(
+    sid int primary key,
+    name varchar(50),
+    location varchar(50)
+);
+create table storehours(
+    sid int references stores(sid),
+    day int,
+    openTime date,
+    closeTime date,
+    primary key(sid,day)
+);
+create table employees(
+    storeID references stores(SID),
+    eid int primary key,
+    name varchar(50),
+    salary float
+);
+
+create table products(
+    pid int primary key,
+    pname varchar(20),
+    category varchar(20),
+    price float,
+    quantity int
+);
+create table producers(
+    prID int primary key,
+    name varchar(50),
+    location varchar(50)
+);
+
+create table discounts(
+    pid int references products(pid),
+    storeID references stores(sid),
+    newprice float,
+    startDate date,
+    expDate date,
+    primary key(pid, storeID, startDate)
+);
+
+create table transactions(
+    tid int primary key, 
+    sid int references stores(sid),
+    mid int references members(mid),
+    pdate date
+);
+
+create table purchases(
+    tid int references transactions(tid),
+    pid int references products(pid),
+    quantity int,
+    status varchar(10),
+
+    primary key(tid, pid)
+);
+
+create table produces(
+    prID int references producers(prID),
+    pid int references products(pid),
+    primary key (prID,pid)
+);
